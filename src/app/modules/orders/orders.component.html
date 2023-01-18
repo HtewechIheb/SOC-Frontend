@@ -1,0 +1,61 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">My Orders</div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+
+        <!-- orders list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+            <ng-container *ngIf="orders.length > 0; else noorders">
+                <div class="grid">
+                    <!-- Header -->
+                    <div
+                        class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5">
+                        <div>Number</div>
+                        <div>Total</div>
+                        <div>Actions</div>
+                    </div>
+                    <!-- Rows -->
+                    <ng-container *ngFor="let order of orders; trackBy: trackByFn">
+                        <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+                            <div class="truncate">
+                                {{order.orderNumber}}
+                            </div>
+
+                            <div>
+                                {{order.total | currency:'USD':'symbol':'1.2-2'}}
+                            </div>
+
+                            <div>
+                                <button
+                                    class="min-w-10 min-h-7 h-7 px-2 leading-6"
+                                    mat-raised-button
+                                    [color]="'warn'">
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <mat-paginator
+                    class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+                    [ngClass]="{'pointer-events-none': isLoading}"
+                    [length]="orders.length"
+                    [pageSize]="10"></mat-paginator>
+
+            </ng-container>
+
+            <ng-template #noorders>
+                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">You don't have any orders!</div>
+            </ng-template>
+        </div>
+    </div>
+</div>

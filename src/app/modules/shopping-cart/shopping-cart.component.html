@@ -1,0 +1,104 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Inventory</div>
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Add item button -->
+            <button
+                class="ml-4"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="confirmOrder()">
+                <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                <span class="ml-2 mr-1">Confirm Order</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+
+        <!-- items list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+            <ng-container *ngIf="items.length > 0; else noitems">
+                <div class="grid">
+                    <!-- Header -->
+                    <div
+                        class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5">
+                        <div></div>
+                        <div>Name</div>
+                        <div>Quantity</div>
+                        <div
+                            class="hidden sm:block">
+                            Price
+                        </div>
+                        <div>Actions</div>
+                    </div>
+                    <!-- Rows -->
+                    <ng-container *ngFor="let item of items; trackBy: trackByFn">
+                        <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+
+                            <!-- Image -->
+                            <div class="flex items-center">
+                                <div class="relative flex flex-0 items-center justify-center w-12 h-12 mr-6 rounded overflow-hidden border">
+                                    <img
+                                        class="w-8"
+                                        *ngIf="item.product.photoUrl"
+                                        [alt]="'item thumbnail image'"
+                                        [src]="item.product.photoUrl">
+                                    <div
+                                        class="flex items-center justify-center w-full h-full text-xs font-semibold leading-none text-center uppercase"
+                                        *ngIf="!item.product.photoUrl">
+                                        NO THUMB
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Name -->
+                            <div class="truncate">
+                                {{item.product.name}}
+                            </div>
+
+                            <!-- Quantity -->
+                            <div>
+                                x{{item.quantity}}
+                            </div>
+
+                            <!-- Price -->
+                            <div class="hidden sm:block">
+                                {{item.product.price | currency:'USD':'symbol':'1.2-2'}}
+                            </div>
+
+                            <div>
+                                <button
+                                    class="min-w-10 min-h-7 h-7 px-2 leading-6"
+                                    mat-raised-button
+                                    [color]="'warn'"
+                                    (click)="removeProduct(item.product)">
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <mat-paginator
+                    class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+                    [ngClass]="{'pointer-events-none': isLoading}"
+                    [length]="items.length"
+                    [pageSize]="10"></mat-paginator>
+
+            </ng-container>
+
+            <ng-template #noitems>
+                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no items in the cart!</div>
+            </ng-template>
+        </div>
+    </div>
+</div>

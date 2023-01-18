@@ -1,0 +1,77 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">Shop</a>
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Products
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <div class="flex flex-wrap justify-center w-full max-w-400">
+
+            <fuse-card *ngFor="let product of products" class="flex flex-col md:flex-row max-w-80 md:max-w-160 w-full filter-listing">
+                <div class="flex-0 w-80 md:w-64 px-2">
+                    <img
+                        class="w-full h-full object-contain"
+                        src="{{ product.photoUrl }}"
+                        alt="Card cover image">
+                </div>
+                <div class="flex flex-col flex-auto m-8 mb-4">
+                    <div class="text-2xl font-semibold leading-tight">{{ product.name }}</div>
+                    <div class="flex items-center leading-none mt-2 -ml-1">
+                        <div class="flex items-center">
+                            <mat-icon
+                                class="text-orange-500 icon-size-5"
+                                [svgIcon]="'mat_outline:star'"></mat-icon>
+                            <mat-icon
+                                class="text-orange-500 icon-size-5"
+                                [svgIcon]="'mat_outline:star'"></mat-icon>
+                            <mat-icon
+                                class="text-orange-500 icon-size-5"
+                                [svgIcon]="'mat_outline:star'"></mat-icon>
+                            <mat-icon
+                                class="text-orange-500 icon-size-5"
+                                [svgIcon]="'mat_outline:star'"></mat-icon>
+                            <mat-icon
+                                class="text-orange-500 icon-size-5"
+                                [svgIcon]="'mat_outline:star_half'"></mat-icon>
+                        </div>
+                        <div class="text-secondary ml-2">4.5</div>
+                        <div class="text-secondary mx-2">&bull;</div>
+                        <div class="text-secondary">98 reviews</div>
+                    </div>
+                    <div class="mt-6">
+                        {{ product.description }}
+                    </div>
+                    <div class="flex items-center mt-3 -mx-3">
+                        <button
+                            class="px-3 mr-1"
+                            mat-button
+                            [color]="'primary'"
+                            (click)="addToCart(product)">
+                            Add To Cart
+                            <mat-icon
+                                    class="ml-2 icon-size-5"
+                                    [svgIcon]="'heroicons_solid:shopping-cart'"></mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </fuse-card>
+
+            <mat-paginator class="w-full flex justify-end" [pageSize]="10" [length]="products.length"></mat-paginator>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="flex flex-col items-center justify-center w-full h-full">
+    <div class="w-full max-w-3xl">
+        <div class="max-w-none mx-auto prose prose-sm">
+            <img
+                class="w-20"
+                src="assets/images/logo/logo.svg"
+                alt="Logo image">
+            <h1>Welcome To Shoppy !</h1>
+            <p>
+                Shoppy is simple, user-friendly and modern online shopping website. If you have a product in mind, we're probably selling it.
+                Check out our rich list of products, choose what you want, and get it delivered to your doorstep with a simple click.
+            </p>
+            <p>
+                In order to use our website, you must have an activated account and be logged in. If your already have an account, you can click the login button to proceed.
+                Otherwise, click the register button to create an account.
+            </p>
+        </div>
+        <div class="flex">
+            <a
+                class="mt-8 mr-8 flex-auto"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="login()">
+                <span>Login</span>
+                <mat-icon
+                    class="ml-2 icon-size-5"
+                    [svgIcon]="'heroicons_solid:arrow-circle-right'"></mat-icon>
+            </a>
+
+            <a
+                class="mt-8 flex-auto"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="register()">
+                <span>Register</span>
+                <mat-icon
+                    class="ml-2 icon-size-5"
+                    [svgIcon]="'heroicons_solid:user-add'"></mat-icon>
+            </a>
+        </div>
+    </div>
+</div>
